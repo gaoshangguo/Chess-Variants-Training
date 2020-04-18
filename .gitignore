@@ -7,3 +7,5 @@ data/
 deps/
 project.lock.json
 config-secret.json
+.user
+.pubxml
