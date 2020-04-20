@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChessLearning", "ChessLearn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChessLearning.Test", "ChessLearning.Test\ChessLearning.Test.csproj", "{D8C5E6E4-DEAA-45C7-B78F-005B8644264C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessLearning.DataAccess", "ChessLearning.DataAccess\ChessLearning.DataAccess.csproj", "{ED5B210A-CD1F-4347-AFB4-99F1881FEB45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessLearning.Model", "ChessLearning.Model\ChessLearning.Model.csproj", "{C62560C3-E168-432A-A45F-CE35F6383A18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{D8C5E6E4-DEAA-45C7-B78F-005B8644264C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8C5E6E4-DEAA-45C7-B78F-005B8644264C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8C5E6E4-DEAA-45C7-B78F-005B8644264C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED5B210A-CD1F-4347-AFB4-99F1881FEB45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED5B210A-CD1F-4347-AFB4-99F1881FEB45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED5B210A-CD1F-4347-AFB4-99F1881FEB45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED5B210A-CD1F-4347-AFB4-99F1881FEB45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C62560C3-E168-432A-A45F-CE35F6383A18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C62560C3-E168-432A-A45F-CE35F6383A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C62560C3-E168-432A-A45F-CE35F6383A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C62560C3-E168-432A-A45F-CE35F6383A18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

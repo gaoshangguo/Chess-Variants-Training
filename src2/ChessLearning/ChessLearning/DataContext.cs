@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ChessLearning.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,13 @@ namespace ChessLearning
 {
     public class DataContext : FrameworkContext
     {
-        public DataContext(CS cs)
-             : base(cs)
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<CustomUser> CustomUsers { get; set; }
+        public DataContext(CS cs) : base(cs)
         {
         }
 
-        public DataContext(string cs, DBTypeEnum dbtype, string version=null)
-             : base(cs, dbtype, version)
+        public DataContext(string cs, DBTypeEnum dbtype, string version = null) : base(cs, dbtype, version)
         {
         }
 
@@ -29,7 +30,7 @@ namespace ChessLearning
     {
         public DataContext CreateDbContext(string[] args)
         {
-            return new DataContext("你的完整连接字符串", DBTypeEnum.SqlServer);
+            return new DataContext("server=47.97.163.250;port=3306;database=chessdb;user=root;password=Eric@2019;CharSet=utf8;", DBTypeEnum.MySql);
         }
     }
 

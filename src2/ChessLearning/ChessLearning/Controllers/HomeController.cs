@@ -19,7 +19,6 @@ namespace ChessLearning.Controllers
         [AllRights]
         public IActionResult Index()
         {
-            ViewData["title"] = "WTM";
             return View();
         }
 
