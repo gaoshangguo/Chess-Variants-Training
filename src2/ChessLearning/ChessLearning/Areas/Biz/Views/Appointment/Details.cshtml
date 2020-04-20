@@ -1,0 +1,22 @@
+﻿@model ChessLearning.Biz.ViewModels.AppointmentVMs.AppointmentVM
+
+<wt:form vm="@Model">
+<wt:row items-per-row="ItemsPerRowEnum.Two">
+<wt:display field="Entity.StudentId" />
+<wt:display field="Entity.StudentNickName" />
+<wt:display field="Entity.StudentUrl" />
+<wt:display field="Entity.TeacherId" />
+<wt:display field="Entity.TeacherNickName" />
+<wt:display field="Entity.TeacherUrl" />
+<wt:display field="Entity.Status" />
+<wt:display field="Entity.DoingTime" />
+<wt:display field="Entity.RoomCode" />
+<wt:display field="Entity.StudentColor" />
+<wt:display field="Entity.CreatedTime" />
+<wt:display field="Entity.CreatedUserId" />
+<wt:display field="Entity.Remark" />
+</wt:row>
+    <wt:row align=" AlignEnum.Right">
+        <wt:closebutton />
+    </wt:row>
+</wt:form>
