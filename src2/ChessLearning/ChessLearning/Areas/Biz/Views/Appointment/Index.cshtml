@@ -2,10 +2,7 @@
 
 <wt:searchpanel vm="@Model" reset-btn="true">
 <wt:row items-per-row="ItemsPerRowEnum.Three">
-<wt:textbox field="Searcher.StudentNickName" />
-<wt:textbox field="Searcher.TeacherNickName" />
 <wt:combobox field="Searcher.Status" empty-text="全部" />
-<wt:textbox field="Searcher.CreatedUserId" />
 </wt:row>
 </wt:searchpanel>
 <wt:grid vm="@Model" url="/Biz/Appointment/Search"/>

@@ -31,18 +31,18 @@ namespace ChessLearning.Biz.ViewModels.AppointmentVMs
         protected override IEnumerable<IGridColumn<Appointment_View>> InitGridHeader()
         {
             return new List<GridColumn<Appointment_View>>{
-                this.MakeGridHeader(x => x.StudentId),
+                //this.MakeGridHeader(x => x.StudentId),
                 this.MakeGridHeader(x => x.StudentNickName),
-                this.MakeGridHeader(x => x.StudentUrl),
-                this.MakeGridHeader(x => x.TeacherId),
+                //this.MakeGridHeader(x => x.StudentUrl),
+                //this.MakeGridHeader(x => x.TeacherId),
                 this.MakeGridHeader(x => x.TeacherNickName),
-                this.MakeGridHeader(x => x.TeacherUrl),
+                //this.MakeGridHeader(x => x.TeacherUrl),
                 this.MakeGridHeader(x => x.Status),
                 this.MakeGridHeader(x => x.DoingTime),
-                this.MakeGridHeader(x => x.RoomCode),
+                //this.MakeGridHeader(x => x.RoomCode),
                 this.MakeGridHeader(x => x.StudentColor),
                 this.MakeGridHeader(x => x.CreatedTime),
-                this.MakeGridHeader(x => x.CreatedUserId),
+                //this.MakeGridHeader(x => x.CreatedUserId),
                 this.MakeGridHeader(x => x.Remark),
                 this.MakeGridHeaderAction(width: 200)
             };
@@ -51,10 +51,10 @@ namespace ChessLearning.Biz.ViewModels.AppointmentVMs
         public override IOrderedQueryable<Appointment_View> GetSearchQuery()
         {
             var query = DC.Set<Appointment>()
-                .CheckContain(Searcher.StudentNickName, x=>x.StudentNickName)
-                .CheckContain(Searcher.TeacherNickName, x=>x.TeacherNickName)
+                //.CheckContain(Searcher.StudentNickName, x=>x.StudentNickName)
+                //.CheckContain(Searcher.TeacherNickName, x=>x.TeacherNickName)
                 .CheckEqual(Searcher.Status, x=>x.Status)
-                .CheckContain(Searcher.CreatedUserId, x=>x.CreatedUserId)
+                //.CheckContain(Searcher.CreatedUserId, x=>x.CreatedUserId)
                 .Select(x => new Appointment_View
                 {
 				    ID = x.ID,
