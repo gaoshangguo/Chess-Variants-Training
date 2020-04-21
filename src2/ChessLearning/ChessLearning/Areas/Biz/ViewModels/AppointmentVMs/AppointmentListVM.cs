@@ -17,14 +17,14 @@ namespace ChessLearning.Biz.ViewModels.AppointmentVMs
         {
             return new List<GridAction>
             {
-                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Create, "新建","Biz", dialogWidth: 800),
-                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Edit, "修改","Biz", dialogWidth: 800),
+                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Create, "新建预约","Biz", dialogWidth: 800),
+                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Edit, "加入","Biz", dialogWidth: 800),
                 this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Delete, "删除", "Biz",dialogWidth: 800),
                 this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Details, "详细","Biz", dialogWidth: 800),
-                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.BatchEdit, "批量修改","Biz", dialogWidth: 800),
-                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.BatchDelete, "批量删除","Biz", dialogWidth: 800),
-                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Import, "导入","Biz", dialogWidth: 800),
-                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.ExportExcel, "导出","Biz"),
+                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.BatchEdit, "批量修改","Biz", dialogWidth: 800),
+                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.BatchDelete, "批量删除","Biz", dialogWidth: 800),
+                ////this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Import, "导入","Biz", dialogWidth: 800),
+                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.ExportExcel, "导出","Biz"),
             };
         }
 
@@ -41,7 +41,7 @@ namespace ChessLearning.Biz.ViewModels.AppointmentVMs
                 this.MakeGridHeader(x => x.DoingTime),
                 //this.MakeGridHeader(x => x.RoomCode),
                 this.MakeGridHeader(x => x.StudentColor),
-                this.MakeGridHeader(x => x.CreatedTime),
+                this.MakeGridHeader(x => x.CreateTime),
                 //this.MakeGridHeader(x => x.CreatedUserId),
                 this.MakeGridHeader(x => x.Remark),
                 this.MakeGridHeaderAction(width: 200)
@@ -68,8 +68,8 @@ namespace ChessLearning.Biz.ViewModels.AppointmentVMs
                     DoingTime = x.DoingTime,
                     RoomCode = x.RoomCode,
                     StudentColor = x.StudentColor,
-                    CreatedTime = x.CreatedTime,
-                    CreatedUserId = x.CreatedUserId,
+                    CreateTime = x.CreateTime,
+                    CreateBy = x.CreateBy,
                     Remark = x.Remark,
                 })
                 .OrderBy(x => x.ID);

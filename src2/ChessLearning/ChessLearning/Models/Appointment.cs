@@ -29,7 +29,7 @@ namespace ChessLearning.Models
     public class Appointment : BasePoco
     {
 
-        public string StudentId { get; set; }
+        public Guid StudentId { get; set; }
         
         [Display(Name = "学生昵称")]
         public string StudentNickName { get; set; }
@@ -37,7 +37,7 @@ namespace ChessLearning.Models
         [Display(Name = "学生链接")]
         public string StudentUrl { get; set; }
         
-        public string TeacherId { get; set; }
+        public Guid TeacherId { get; set; }
         
         [Display(Name = "老师昵称")]
         public string TeacherNickName { get; set; }
@@ -54,12 +54,6 @@ namespace ChessLearning.Models
         
         [Display(Name = "学员选色")]
         public StudentColorEnum StudentColor { get; set; }
-
-        [Display(Name = "预约创建时间")]
-        public string CreatedTime { get; set; }
-        
-        [Display(Name = "预约创建人")]
-        public string CreatedUserId { get; set; }
         
         [Display(Name = "备注")]
         public string Remark { get; set; }

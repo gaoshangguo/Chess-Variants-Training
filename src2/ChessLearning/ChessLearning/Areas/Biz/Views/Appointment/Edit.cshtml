@@ -1,23 +1,23 @@
 ﻿@model ChessLearning.Biz.ViewModels.AppointmentVMs.AppointmentVM
 
 <wt:form vm="@Model">
-<wt:row items-per-row="ItemsPerRowEnum.Two">
-<wt:textbox field="Entity.StudentId" />
-<wt:textbox field="Entity.StudentNickName" />
-<wt:textbox field="Entity.StudentUrl" />
-<wt:textbox field="Entity.TeacherId" />
-<wt:textbox field="Entity.TeacherNickName" />
-<wt:textbox field="Entity.TeacherUrl" />
-<wt:combobox field="Entity.Status" />
-<wt:textbox field="Entity.DoingTime" />
-<wt:textbox field="Entity.RoomCode" />
-<wt:combobox field="Entity.StudentColor" />
-<wt:textbox field="Entity.CreatedTime" />
-<wt:textbox field="Entity.CreatedUserId" />
-<wt:textbox field="Entity.Remark" />
+<wt:row items-per-row="ItemsPerRowEnum.One">
+<wt:hidden field="Entity.StudentId" />
+<wt:hidden field="Entity.StudentNickName" />
+<wt:hidden field="Entity.StudentUrl" />
+<wt:hidden field="Entity.TeacherId" />
+<wt:hidden field="Entity.TeacherNickName" />
+<wt:hidden field="Entity.TeacherUrl" />
+<wt:hidden field="Entity.Status" />
+<wt:hidden field="Entity.DoingTime" />
+<wt:hidden field="Entity.RoomCode" />
+<wt:hidden field="Entity.StudentColor" />
+<wt:hidden field="Entity.CreateTime" />
+<wt:hidden field="Entity.CreateBy" />
+<wt:hidden field="Entity.Remark" />
 </wt:row>
     <wt:hidden field="Entity.ID" />
-    <wt:row align="AlignEnum.Right">
+    <wt:row align="AlignEnum.Center">
         <wt:submitbutton />
         <wt:closebutton />
     </wt:row>
