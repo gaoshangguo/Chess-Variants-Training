@@ -18,13 +18,14 @@ namespace ChessLearning.Biz.ViewModels.AppointmentVMs
             return new List<GridAction>
             {
                 this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Create, "新建","Biz", dialogWidth: 800),
-                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Edit, "修改","Biz", dialogWidth: 800),
-                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Delete, "删除", "Biz",dialogWidth: 800),
+                this.MakeAction("Appointment","Edit","确认预约","确认预约", GridActionParameterTypesEnum.SingleId,"Biz",400).SetShowInRow(true),
+                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Edit, "修改","Biz", dialogWidth: 800),
+                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Delete, "删除", "Biz",dialogWidth: 800),
                 this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Details, "详细","Biz", dialogWidth: 800),
-                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.BatchEdit, "批量修改","Biz", dialogWidth: 800),
-                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.BatchDelete, "批量删除","Biz", dialogWidth: 800),
-                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Import, "导入","Biz", dialogWidth: 800),
-                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.ExportExcel, "导出","Biz"),
+                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.BatchEdit, "批量修改","Biz", dialogWidth: 800),
+                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.BatchDelete, "批量删除","Biz", dialogWidth: 800),
+                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Import, "导入","Biz", dialogWidth: 800),
+                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.ExportExcel, "导出","Biz"),
             };
         }
 
