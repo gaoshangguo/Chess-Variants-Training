@@ -18,7 +18,7 @@ namespace ChessLearning.Biz.ViewModels.AppointmentVMs
             var items = new List<GridAction>();
             items.Add(this.MakeAction("Appointment", "Create", "新建预约", "新建预约", GridActionParameterTypesEnum.NoId, "Biz", 400).SetShowInRow(false));
             items.Add(this.MakeAction("Appointment", "Edit", "确认预约", "确认预约", GridActionParameterTypesEnum.SingleId, "Biz", 400).SetShowInRow(true).SetBindVisiableColName("Confrim").SetHideOnToolBar(true));
-            items.Add(this.MakeAction("Appointment", "Play", "开始下棋", "开始下棋", GridActionParameterTypesEnum.SingleId, "Biz",whereStr: x => x.TeacherUrl).SetShowInRow(true).SetShowDialog(true).SetIsRedirect(true).SetBindVisiableColName("Play").SetHideOnToolBar(true));
+            items.Add(this.MakeAction("Appointment", "Play", "开始下棋", "开始下棋", GridActionParameterTypesEnum.SingleId, "Biz").SetShowInRow(true).SetShowDialog(true).SetIsRedirect(true).SetBindVisiableColName("Play").SetHideOnToolBar(true));
             items.Add(this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Details, "详细", "Biz", dialogWidth: 800));
             return items;
         }
@@ -35,8 +35,8 @@ namespace ChessLearning.Biz.ViewModels.AppointmentVMs
                 role = 3;
             }
             return new List<GridColumn<Appointment_View>>{
-                this.MakeGridHeader(x => x.StudentNickName),
                 this.MakeGridHeader(x => x.TeacherNickName),
+                this.MakeGridHeader(x => x.StudentNickName),
                 this.MakeGridHeader(x => x.Status),
                 this.MakeGridHeader(x => x.DoingTime),
                 this.MakeGridHeader(x => x.StudentColor),
@@ -70,7 +70,7 @@ namespace ChessLearning.Biz.ViewModels.AppointmentVMs
                     }
                 }),
                  this.MakeGridHeader(x=>"Play").SetHide().SetFormat((e,v)=>{
-                     if (e.StudentId != Guid.Empty&&e.TeacherId!=Guid.Empty)
+                     if (e.Status==AppointmentStatusEnum.Confrim)
                      {
                          return "true";
                      }

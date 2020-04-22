@@ -150,6 +150,7 @@ namespace ChessLearning.Controllers
                             vm.Entity.StudentUrl = resultObj.black;
                             vm.Entity.TeacherUrl = resultObj.white;
                         }
+                        vm.Entity.Status = AppointmentStatusEnum.Confrim;
                         vm.DoEdit();
                     }
 
@@ -264,14 +265,27 @@ namespace ChessLearning.Controllers
         }
         #endregion
 
-        //#region 开始下棋
-        //[ActionDescription("开始下棋")]
-        //public ActionResult Play(string id)
-        //{
-        //    var vm = CreateVM<AppointmentVM>(id);
-        //    return null;
-        //}
-        //#endregion
+        #region 开始下棋
+        [ActionDescription("开始下棋")]
+        public ActionResult Play(string id)
+        {
+            var vm = CreateVM<AppointmentVM>(id);
+            var role = 2;
+            if (LoginUserInfo.Roles.Any(y => y.RoleCode == "003"))
+            {
+                role = 3;
+            }
+            if (role == 2)
+            {
+                ViewBag.Url = "http://47.97.163.250:3000" + vm.Entity.StudentUrl;
+            }
+            else if (role == 3)
+            {
+                ViewBag.Url = "http://47.97.163.250:3000" + vm.Entity.TeacherUrl;
+            }
+            return PartialView(vm);
+        }
+        #endregion
 
         [ActionDescription("导出")]
         [HttpPost]
