@@ -15,36 +15,70 @@ namespace ChessLearning.Biz.ViewModels.AppointmentVMs
     {
         protected override List<GridAction> InitGridAction()
         {
-            return new List<GridAction>
-            {
-                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Create, "新建","Biz", dialogWidth: 800),
-                this.MakeAction("Appointment","Edit","确认预约","确认预约", GridActionParameterTypesEnum.SingleId,"Biz",400).SetShowInRow(true),
-                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Edit, "修改","Biz", dialogWidth: 800),
-                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Delete, "删除", "Biz",dialogWidth: 800),
-                this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Details, "详细","Biz", dialogWidth: 800),
-                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.BatchEdit, "批量修改","Biz", dialogWidth: 800),
-                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.BatchDelete, "批量删除","Biz", dialogWidth: 800),
-                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Import, "导入","Biz", dialogWidth: 800),
-                //this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.ExportExcel, "导出","Biz"),
-            };
+            var items = new List<GridAction>();
+            items.Add(this.MakeAction("Appointment", "Create", "新建预约", "新建预约", GridActionParameterTypesEnum.NoId, "Biz", 400).SetShowInRow(false));
+            items.Add(this.MakeAction("Appointment", "Edit", "确认预约", "确认预约", GridActionParameterTypesEnum.SingleId, "Biz", 400).SetShowInRow(true).SetBindVisiableColName("Confrim").SetHideOnToolBar(true));
+            items.Add(this.MakeAction("Appointment", "Play", "开始下棋", "开始下棋", GridActionParameterTypesEnum.SingleId, "Biz",whereStr: x => x.TeacherUrl).SetShowInRow(true).SetShowDialog(true).SetIsRedirect(true).SetBindVisiableColName("Play").SetHideOnToolBar(true));
+            items.Add(this.MakeStandardAction("Appointment", GridActionStandardTypesEnum.Details, "详细", "Biz", dialogWidth: 800));
+            return items;
         }
 
         protected override IEnumerable<IGridColumn<Appointment_View>> InitGridHeader()
         {
+            var role = 1;
+            if (LoginUserInfo.Roles.Any(y => y.RoleCode == "002"))
+            {
+                role = 2;
+            }
+            else if (LoginUserInfo.Roles.Any(y => y.RoleCode == "003"))
+            {
+                role = 3;
+            }
             return new List<GridColumn<Appointment_View>>{
-                //this.MakeGridHeader(x => x.StudentId),
                 this.MakeGridHeader(x => x.StudentNickName),
-                //this.MakeGridHeader(x => x.StudentUrl),
-                //this.MakeGridHeader(x => x.TeacherId),
                 this.MakeGridHeader(x => x.TeacherNickName),
-                //this.MakeGridHeader(x => x.TeacherUrl),
                 this.MakeGridHeader(x => x.Status),
                 this.MakeGridHeader(x => x.DoingTime),
-                //this.MakeGridHeader(x => x.RoomCode),
                 this.MakeGridHeader(x => x.StudentColor),
-                this.MakeGridHeader(x => x.CreatedTime),
-                //this.MakeGridHeader(x => x.CreatedUserId),
+                this.MakeGridHeader(x => x.CreateTime),
                 this.MakeGridHeader(x => x.Remark),
+                this.MakeGridHeader(x=>"Confrim").SetHide().SetFormat((e,v)=>{
+                    if (role == 2)
+                    {
+                        if (e.StudentId == Guid.Empty)
+                        {
+                            return "true";
+                        }
+                        else
+                        {
+                            return "false";
+                        }
+                    }
+                    else if (role == 3)
+                    {
+                        if (e.TeacherId == Guid.Empty)
+                        {
+                            return "true";
+                        }
+                        else
+                        {
+                            return "false";
+                        }
+                    }
+                    else {
+                        return "false";
+                    }
+                }),
+                 this.MakeGridHeader(x=>"Play").SetHide().SetFormat((e,v)=>{
+                     if (e.StudentId != Guid.Empty&&e.TeacherId!=Guid.Empty)
+                     {
+                         return "true";
+                     }
+                     else
+                     {
+                         return "false";
+                     }
+                }),
                 this.MakeGridHeaderAction(width: 200)
             };
         }
@@ -52,13 +86,10 @@ namespace ChessLearning.Biz.ViewModels.AppointmentVMs
         public override IOrderedQueryable<Appointment_View> GetSearchQuery()
         {
             var query = DC.Set<Appointment>()
-                //.CheckContain(Searcher.StudentNickName, x=>x.StudentNickName)
-                //.CheckContain(Searcher.TeacherNickName, x=>x.TeacherNickName)
-                .CheckEqual(Searcher.Status, x=>x.Status)
-                //.CheckContain(Searcher.CreatedUserId, x=>x.CreatedUserId)
+                .CheckEqual(Searcher.Status, x => x.Status)
                 .Select(x => new Appointment_View
                 {
-				    ID = x.ID,
+                    ID = x.ID,
                     StudentId = x.StudentId,
                     StudentNickName = x.StudentNickName,
                     StudentUrl = x.StudentUrl,
@@ -69,17 +100,34 @@ namespace ChessLearning.Biz.ViewModels.AppointmentVMs
                     DoingTime = x.DoingTime,
                     RoomCode = x.RoomCode,
                     StudentColor = x.StudentColor,
-                    CreatedTime = x.CreatedTime,
-                    CreatedUserId = x.CreatedUserId,
+                    CreateTime = x.CreateTime,
+                    CreateBy = x.CreateBy,
                     Remark = x.Remark,
-                })
-                .OrderBy(x => x.ID);
-            return query;
-        }
+                });
 
+            var role = 1;
+            if (LoginUserInfo.Roles.Any(y => y.RoleCode == "002"))
+            {
+                role = 2;
+            }
+            else if (LoginUserInfo.Roles.Any(y => y.RoleCode == "003"))
+            {
+                role = 3;
+            }
+            if (role == 2)
+            {
+                query = query.Where(p => p.StudentId == LoginUserInfo.Id || p.StudentId == Guid.Empty);
+            }
+            else if (role == 3)
+            {
+                query = query.Where(p => p.TeacherId == LoginUserInfo.Id || p.TeacherId == Guid.Empty);
+            }
+            return query.OrderByDescending(p => p.ID);
+        }
     }
 
-    public class Appointment_View : Appointment{
+    public class Appointment_View : Appointment
+    {
 
     }
 }

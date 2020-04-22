@@ -31,9 +31,9 @@ namespace ChessLearning.Biz.ViewModels.AppointmentVMs
         [Display(Name = "学员选色")]
         public ExcelPropety StudentColor_Excel = ExcelPropety.CreateProperty<Appointment>(x => x.StudentColor);
         [Display(Name = "预约创建时间")]
-        public ExcelPropety CreatedTime_Excel = ExcelPropety.CreateProperty<Appointment>(x => x.CreatedTime);
+        public ExcelPropety CreatedTime_Excel = ExcelPropety.CreateProperty<Appointment>(x => x.CreateTime);
         [Display(Name = "预约创建人")]
-        public ExcelPropety CreatedUserId_Excel = ExcelPropety.CreateProperty<Appointment>(x => x.CreatedUserId);
+        public ExcelPropety CreatedUserId_Excel = ExcelPropety.CreateProperty<Appointment>(x => x.CreateBy);
         [Display(Name = "备注")]
         public ExcelPropety Remark_Excel = ExcelPropety.CreateProperty<Appointment>(x => x.Remark);
 

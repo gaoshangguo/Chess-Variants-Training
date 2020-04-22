@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using WalkingTec.Mvvm.Core;
 using WalkingTec.Mvvm.Core.Extensions;
 using ChessLearning.Models;
-
+using Microsoft.Extensions.Hosting;
 
 namespace ChessLearning.Biz.ViewModels.AppointmentVMs
 {

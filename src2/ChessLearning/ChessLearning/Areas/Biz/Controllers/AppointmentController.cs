@@ -5,6 +5,10 @@ using WalkingTec.Mvvm.Core;
 using WalkingTec.Mvvm.Mvc;
 using WalkingTec.Mvvm.Core.Extensions;
 using ChessLearning.Biz.ViewModels.AppointmentVMs;
+using System.Linq;
+using ChessLearning.Common;
+using Newtonsoft.Json;
+using ChessLearning.Models;
 
 namespace ChessLearning.Controllers
 {
@@ -41,6 +45,23 @@ namespace ChessLearning.Controllers
         [ActionDescription("新建")]
         public ActionResult Create(AppointmentVM vm)
         {
+            vm.Entity.CreateTime = DateTime.Now;
+            vm.Entity.CreateBy = LoginUserInfo.Name;
+            var role = 2;
+            if (LoginUserInfo.Roles.Any(y => y.RoleCode == "003"))
+            {
+                role = 3;
+            }
+            if (role == 2)
+            {
+                vm.Entity.StudentId = LoginUserInfo.Id;
+                vm.Entity.StudentNickName = LoginUserInfo.Name;
+            }
+            else
+            {
+                vm.Entity.TeacherId = LoginUserInfo.Id;
+                vm.Entity.TeacherNickName = LoginUserInfo.Name;
+            }
             if (!ModelState.IsValid)
             {
                 return PartialView(vm);
@@ -74,6 +95,21 @@ namespace ChessLearning.Controllers
         [ValidateFormItemOnly]
         public ActionResult Edit(AppointmentVM vm)
         {
+            var role = 2;
+            if (LoginUserInfo.Roles.Any(y => y.RoleCode == "003"))
+            {
+                role = 3;
+            }
+            if (role == 2)
+            {
+                vm.Entity.StudentId = LoginUserInfo.Id;
+                vm.Entity.StudentNickName = LoginUserInfo.Name;
+            }
+            else
+            {
+                vm.Entity.TeacherId = LoginUserInfo.Id;
+                vm.Entity.TeacherNickName = LoginUserInfo.Name;
+            }
             if (!ModelState.IsValid)
             {
                 return PartialView(vm);
@@ -88,6 +124,35 @@ namespace ChessLearning.Controllers
                 }
                 else
                 {
+                    string writeUser = "";
+                    string blackUser = "";
+                    if (vm.Entity.StudentColor == Models.StudentColorEnum.White)
+                    {
+                        writeUser = vm.Entity.StudentNickName;
+                        blackUser = vm.Entity.TeacherNickName;
+                    }
+                    else
+                    {
+                        blackUser = vm.Entity.StudentNickName;
+                        writeUser = vm.Entity.TeacherNickName;
+                    }
+                    var resultStr = WebHelper.HttpGetRequest("http://47.97.163.250:3000/create?whiteName=" + writeUser + "&blackName=" + blackUser);
+                    var resultObj = JsonConvert.DeserializeObject<ChessAddress>(resultStr);
+                    if (resultObj != null)
+                    {
+                        if (vm.Entity.StudentColor == Models.StudentColorEnum.White)
+                        {
+                            vm.Entity.StudentUrl = resultObj.white;
+                            vm.Entity.TeacherUrl = resultObj.black;
+                        }
+                        else
+                        {
+                            vm.Entity.StudentUrl = resultObj.black;
+                            vm.Entity.TeacherUrl = resultObj.white;
+                        }
+                        vm.DoEdit();
+                    }
+
                     return FFResult().CloseDialog().RefreshGridRow(vm.Entity.ID);
                 }
             }
@@ -143,11 +208,11 @@ namespace ChessLearning.Controllers
         {
             if (!ModelState.IsValid || !vm.DoBatchEdit())
             {
-                return PartialView("BatchEdit",vm);
+                return PartialView("BatchEdit", vm);
             }
             else
             {
-                return FFResult().CloseDialog().RefreshGrid().Alert("操作成功，共有"+vm.Ids.Length+"条数据被修改");
+                return FFResult().CloseDialog().RefreshGrid().Alert("操作成功，共有" + vm.Ids.Length + "条数据被修改");
             }
         }
         #endregion
@@ -167,17 +232,17 @@ namespace ChessLearning.Controllers
         {
             if (!ModelState.IsValid || !vm.DoBatchDelete())
             {
-                return PartialView("BatchDelete",vm);
+                return PartialView("BatchDelete", vm);
             }
             else
             {
-                return FFResult().CloseDialog().RefreshGrid().Alert("操作成功，共有"+vm.Ids.Length+"条数据被删除");
+                return FFResult().CloseDialog().RefreshGrid().Alert("操作成功，共有" + vm.Ids.Length + "条数据被删除");
             }
         }
         #endregion
 
         #region 导入
-		[ActionDescription("导入")]
+        [ActionDescription("导入")]
         public ActionResult Import()
         {
             var vm = CreateVM<AppointmentImportVM>();
@@ -198,6 +263,15 @@ namespace ChessLearning.Controllers
             }
         }
         #endregion
+
+        //#region 开始下棋
+        //[ActionDescription("开始下棋")]
+        //public ActionResult Play(string id)
+        //{
+        //    var vm = CreateVM<AppointmentVM>(id);
+        //    return null;
+        //}
+        //#endregion
 
         [ActionDescription("导出")]
         [HttpPost]
